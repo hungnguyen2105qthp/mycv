@@ -747,7 +747,7 @@ function addTableKhachHang() {
             <td style="width: 15%">` + u.ho + ' ' + u.ten + `</td>
             <td style="width: 20%">` + u.email + `</td>
             <td style="width: 20%">` + u.username + `</td>
-            <td style="width: 10%">` + u.pass + `</td>
+            <td style="width: 10%">` + '*'.repeat(u.pass.length) + `</td>
             <td style="width: 10%">
                 <div class="tooltip">
                     <label class="switch">
@@ -767,6 +767,7 @@ function addTableKhachHang() {
     s += `</table>`;
     tc.innerHTML = s;
 }
+
 
 // Tìm kiếm
 function timKiemNguoiDung(inp) {
@@ -912,8 +913,97 @@ function progress(percent, bg, width, height) {
             </div>`
 }
 
+
+function openTab(nameTab) {
+    // Ẩn hết các khối nội dung hiện tại
+    var main = document.getElementsByClassName('main')[0].children;
+    for (var e of main) {
+        e.style.display = 'none';
+    }
+    // Hiển thị tab tương ứng
+    switch(nameTab) {
+        case 'Trang Chủ': document.getElementsByClassName('home')[0].style.display = 'block'; break;
+        case 'Sản Phẩm': document.getElementsByClassName('sanpham')[0].style.display = 'block'; break;
+        case 'Đơn Hàng': document.getElementsByClassName('donhang')[0].style.display = 'block'; break;
+        case 'Khách Hàng': document.getElementsByClassName('khachhang')[0].style.display = 'block'; break;
+        case 'Tin nhắn': document.getElementsByClassName('chat')[0].style.display = 'block'; break;
+    }
+}
+
+// Khai báo mảng chứa tin nhắn, có thể lưu trong localStorage để duy trì sau khi tải lại trang
+var chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+
+// Hàm load tin nhắn từ mảng và hiển thị lên giao diện
+function loadMessages() {
+    var chatHistory = document.getElementById('chatHistory');
+    chatHistory.innerHTML = '';
+    chatMessages.forEach(function(msg) {
+       var messageDiv = document.createElement('div');
+       // Nếu tin nhắn từ admin, gán class 'admin'; nếu từ khách hàng, gán class 'customer'
+       messageDiv.className = msg.sender === 'admin' ? 'message admin' : 'message customer';
+       messageDiv.textContent = msg.text;
+       chatHistory.appendChild(messageDiv);
+    });
+}
+
+// Hàm gửi tin nhắn của admin
+function sendMessage() {
+    var messageInput = document.getElementById('chatMessage');
+    var message = messageInput.value.trim();
+    if(message === "") return;
+    
+    // Tạo đối tượng tin nhắn mới
+    var newMessage = {
+        sender: 'admin',
+        text: message,
+        time: new Date().toLocaleString()
+    };
+    
+    // Lưu tin nhắn vào mảng và cập nhật localStorage
+    chatMessages.push(newMessage);
+    localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+    
+    // Cập nhật giao diện chat
+    loadMessages();
+    
+    // Xoá nội dung input sau khi gửi
+    messageInput.value = '';
+}
+
+// Gọi loadMessages khi trang được tải hoặc khi chuyển sang tab tin nhắn
+window.addEventListener('load', loadMessages);
+
 // for(var i = 0; i < list_products.length; i++) {
 //     list_products[i].masp = list_products[i].company.substring(0, 3) + vitriCompany(list_products[i], i);
 // }
 
 // console.log(JSON.stringify(list_products));
+document.addEventListener("DOMContentLoaded", function () {
+    var chatMessages = document.getElementById("chatMessages");
+    var chatInput = document.getElementById("chatInput");
+    var chatSend = document.getElementById("chatSend");
+
+    var db = firebase.database().ref("messages");
+
+    // Hiển thị tin nhắn từ khách hàng
+    db.on("child_added", function (snapshot) {
+        var msg = snapshot.val();
+        var msgElement = document.createElement("div");
+        msgElement.textContent = msg.sender === "customer" ? "Khách hàng: " + msg.text : "Bạn: " + msg.text;
+        chatMessages.appendChild(msgElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+
+    // Admin gửi tin nhắn
+    chatSend.addEventListener("click", function () {
+        var message = chatInput.value.trim();
+        if (message !== "") {
+            db.push({
+                sender: "admin",
+                text: message,
+                timestamp: Date.now()
+            });
+            chatInput.value = ""; // Xóa nội dung ô nhập
+        }
+    });
+});

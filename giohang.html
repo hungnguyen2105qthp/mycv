@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +9,7 @@
 	<title>Thế giới điện thoại</title>
 
 	<!-- Load font awesome icons -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
 
 	<!-- our files -->
 	<!-- css -->
@@ -22,21 +20,55 @@
 	<link rel="stylesheet" href="css/gioHang.css">
 	<link rel="stylesheet" href="css/footer.css">
 	<!-- js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 	<script src="data/products.js"></script>
 	<script src="js/classes.js"></script>
 	<script src="js/dungchung.js"></script>
 	<script src="js/giohang.js"></script>
-
 </head>
-
 <body>
+	<!-- Modal thanh toán QR và nhập thông tin giao hàng (chỉ 1 modal duy nhất) -->
+	<!-- Modal thanh toán QR và nhập thông tin giao hàng (chỉ 1 modal duy nhất) -->
+<div id="qrModal" class="qr-modal">
+    <div class="qr-content">
+        <span class="close" onclick="closeQRModal()">&times;</span>
+        <!-- Phần nhập thông tin giao hàng -->
+        <div id="shippingForm">
+            <h2>Thông tin giao hàng</h2>
+            <label>
+                Họ tên: 
+                <input type="text" id="shipName" required>
+                <span class="error-message" id="errorShipName"></span>
+            </label><br>
+            <label>
+                Số điện thoại: 
+                <input type="text" id="shipPhone" required>
+                <span class="error-message" id="errorShipPhone"></span>
+            </label><br>
+            <label>
+                Địa chỉ: 
+                <textarea id="shipAddress" required></textarea>
+                <span class="error-message" id="errorShipAddress"></span>
+            </label><br>
+            <button onclick="proceedWithQR()">Thanh toán qua QR</button>
+            <button onclick="directPayment()">Thanh toán trực tiếp</button>
+        </div>
+        <!-- Phần QR code, ẩn mặc định -->
+        <div id="qrSection" style="display:none;">
+            <h2>Thanh Toán</h2>
+            <div id="qrCode"></div>
+            <p>Tổng số tiền cần thanh toán: <span id="totalAmount"></span> ₫</p>
+            <button onclick="confirmPayment()">Đã thanh toán</button>
+        </div>
+    </div>
+</div>
+
+
 	<script> addTopNav(); </script>
 
 	<section style="min-height: 85vh">
 		<script> addHeader(); </script>
-
-		<table class="listSanPham" > </table>
-		
+		<table class="listSanPham"></table>
 	</section> <!-- End Section -->
 
 	<script>
@@ -47,5 +79,4 @@
 
 	<i class="fa fa-arrow-up" id="goto-top-page" onclick="gotoTop()"></i>
 </body>
-
 </html>

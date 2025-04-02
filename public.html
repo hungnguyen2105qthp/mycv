@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Thế giới điện thoại</title>
+  <!-- CSS tuỳ ý -->
+</head>
+<body>
+  <h2>SmartPhone Store - Admin</h2>
+  
+  <!-- Khu vực hiển thị tin nhắn -->
+  <div id="chatHistory" style="border:1px solid #ccc; height:300px; overflow:auto; margin-bottom:10px;"></div>
+  <!-- Ô nhập tin nhắn -->
+  <input type="text" id="chatMessage" placeholder="Nhập tin nhắn...">
+  <button onclick="sendMessage()">Gửi</button>
+
+  <!-- Socket.IO client -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- admin.js (logic chat + hiển thị) -->
+  <script src="js/admin.js"></script>
+</body>
+</html>

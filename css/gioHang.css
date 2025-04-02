@@ -135,3 +135,138 @@
 .xoaHet:hover {
     background-color: rgb(224, 65, 65);
 }
+
+/* QR Modal styles */
+/* QR Modal styles */
+/* Enhanced QR Modal styles */
+.qr-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.qr-content {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.qr-content .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.qr-content .close:hover {
+    color: #e74c3c;
+}
+
+#qrCode {
+    margin: 20px auto;
+    width: 200px;
+    height: 200px;
+}
+
+#totalAmount {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.qr-content h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.qr-content button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.qr-content button:hover {
+    background-color: #2980b9;
+}
+
+/* Styles cho form giao hàng */
+#shippingForm {
+    text-align: left;
+}
+
+#shippingForm h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#shippingForm label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1.1em;
+}
+
+#shippingForm input,
+#shippingForm textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+#shippingForm button {
+    padding: 10px 20px;
+    margin: 10px 5px 0 0;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: #27ae60;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#shippingForm button:hover {
+    background-color: #1e8449;
+}
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    display: none;
+}
+
+.input-error {
+    border-color: red;
+}

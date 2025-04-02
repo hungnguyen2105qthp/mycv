@@ -1,0 +1,17 @@
+{
+  "name": "doan_web1",
+  "version": "1.0.0",
+  "description": "Donate? Muốn hỗ trợ mình 1 ly cafe <3 [Donate here](https://github.com/HoangTran0410/HoangTran0410/blob/main/DONATE.md)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "doan_web1": "file:",
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
