@@ -1,3 +1,31 @@
+<?php
+require_once("config.php");
+
+if (!isset($_GET['amount'])) {
+    die("Thiếu thông tin số tiền!");
+}
+
+$vnp_Amount = $_GET['amount'] * 100; // VNPay yêu cầu nhân 100
+$vnp_TxnRef = time(); // Mã giao dịch duy nhất
+$vnp_OrderInfo = "Thanh toán đơn hàng";
+$vnp_ReturnUrl = "http://localhost/index.php"; // Thay bằng URL thật nếu đã deploy
+
+$vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?"
+         . "vnp_Version=2.1.0"
+         . "&vnp_Command=pay"
+         . "&vnp_TmnCode=" . $vnp_TmnCode
+         . "&vnp_Amount=" . $vnp_Amount
+         . "&vnp_CurrCode=VND"
+         . "&vnp_TxnRef=" . $vnp_TxnRef
+         . "&vnp_OrderInfo=" . $vnp_OrderInfo
+         . "&vnp_ReturnUrl=" . $vnp_ReturnUrl;
+
+echo "Chuyển hướng đến: " . $vnp_Url; // Debug URL trước khi chuyển hướng
+
+header("Location: " . $vnp_Url);
+exit();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

@@ -331,3 +331,4 @@ function capNhatMoiThu() { // Mọi thứ
     // Cập nhật trên header
     capNhat_ThongTin_CurrentUser();
 }
+

@@ -70,9 +70,16 @@
 		<script> addHeader(); </script>
 		<table class="listSanPham"></table>
 	</section> <!-- End Section -->
+	<button id="btnThanhToan">Thanh toán VNPay</button>
 
 	<script>
 		addContainTaiKhoan();
+		document.getElementById("btnThanhToan").addEventListener("click", function () {
+    let totalAmount = 100000; // Thay bằng tổng số tiền thực tế từ giỏ hàng
+
+    // Chuyển hướng đến vnpay_pay.php để xử lý thanh toán
+    window.location.href = `vnpay_pay.php?amount=${totalAmount}`;
+});
 	</script>
 
 	<div class="footer"><script>addFooter();</script></div>
